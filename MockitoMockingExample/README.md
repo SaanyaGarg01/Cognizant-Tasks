@@ -31,7 +31,8 @@ MockitoMockingExample/
         └── java/
             └── com/
                 └── example/
-                    └── MyServiceTest.java # JUnit 5 + Mockito test case
+                    ├── MyServiceTest.java # JUnit 5 + Mockito test case for mocking/stubbing
+                    └── InteractionVerificationTest.java # JUnit 5 + Mockito test case for verifying interactions
 ```
 
 ---
@@ -68,26 +69,38 @@ To support Mockito with JUnit 5, the following dependencies are added inside `po
 
 ---
 
-## How the Test Works (`MyServiceTest.java`)
+## How the Tests Work
 
-1. **Mocking**: We create a mock version of `ExternalApi` using:
-   ```java
-   ExternalApi mockApi = Mockito.mock(ExternalApi.class);
-   ```
-2. **Stubbing**: We define the mock's behavior using Mockito's static `when()` and `thenReturn()` methods:
-   ```java
-   when(mockApi.getData()).thenReturn("Mock Data");
-   ```
-3. **Execution & Assertion**: We run the code under test and verify the output:
-   ```java
-   MyService service = new MyService(mockApi);
-   String result = service.fetchData();
-   assertEquals("Mock Data", result);
-   ```
-4. **Verification**: We verify that the mock's method was indeed called:
-   ```java
-   verify(mockApi, times(1)).getData();
-   ```
+### 1. Mocking and Stubbing (`MyServiceTest.java`)
+- **Mocking**: We create a mock version of `ExternalApi` using:
+  ```java
+  ExternalApi mockApi = Mockito.mock(ExternalApi.class);
+  ```
+- **Stubbing**: We define the mock's behavior using Mockito's static `when()` and `thenReturn()` methods:
+  ```java
+  when(mockApi.getData()).thenReturn("Mock Data");
+  ```
+- **Execution & Assertion**: We run the code under test and verify the output:
+  ```java
+  MyService service = new MyService(mockApi);
+  String result = service.fetchData();
+  assertEquals("Mock Data", result);
+  ```
+- **Verification**: We verify that the mock's method was indeed called:
+  ```java
+  verify(mockApi, times(1)).getData();
+  ```
+
+### 2. Verifying Interactions with Arguments (`InteractionVerificationTest.java`)
+- **Action**: We call a method `fetchDataById(101)` that takes a specific integer argument.
+- **Verification**: We check that the mock was interacted with the exact argument using:
+  ```java
+  verify(mockApi, times(1)).getDataById(101);
+  ```
+- **Verification of Non-Interactions**: We also check that other methods/arguments were not invoked:
+  ```java
+  verify(mockApi, never()).getDataById(999);
+  ```
 
 ---
 

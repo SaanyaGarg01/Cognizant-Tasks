@@ -13,4 +13,8 @@ public class MyService {
     public String fetchData() {
         return externalApi.getData();
     }
+
+    public String fetchDataById(int id) {
+        return externalApi.getDataById(id);
+    }
 }
