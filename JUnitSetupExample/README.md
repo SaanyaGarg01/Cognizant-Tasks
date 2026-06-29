@@ -23,7 +23,8 @@ JUnitSetupExample/
             └── com/
                 └── example/
                     ├── CalculatorTest.java # JUnit test cases for Calculator
-                    └── AssertionsTest.java # JUnit assertions demonstration test cases
+                    ├── AssertionsTest.java # JUnit assertions demonstration test cases
+                    └── CalculatorFixtureTest.java # Arrange-Act-Assert and Setup/Teardown demonstration
 ```
 
 ---
@@ -56,13 +57,12 @@ The JUnit dependency is configured inside the `dependencies` section of the `pom
 Implements basic arithmetic operations: addition, subtraction, multiplication, and division. It includes boundary verification checks such as throwing an `IllegalArgumentException` on division-by-zero operations.
 
 ### 2. Unit Tests
-- **[CalculatorTest.java](file:///c:/Users/lenovo/Downloads/New%20folder/cognizant%202-ReactJS%20HOC/Cognizant%20Tasks/JUnitSetupExample/src/test/java/com/example/CalculatorTest.java)**: Verifies the `Calculator` operations. Uses basic assertions and verifies exceptions using `@Test(expected = IllegalArgumentException.class)`.
-- **[AssertionsTest.java](file:///c:/Users/lenovo/Downloads/New%20folder/cognizant%202-ReactJS%20HOC/Cognizant%20Tasks/JUnitSetupExample/src/test/java/com/example/AssertionsTest.java)**: Demonstrates various assertions including:
-  - `assertEquals()`: Verifies expectation values match actual results.
-  - `assertTrue()` / `assertFalse()`: Verifies conditional states.
-  - `assertNull()` / `assertNotNull()`: Checks references.
-  - `assertSame()`: Checks memory location identity.
-  - `assertArrayEquals()`: Checks contents of arrays.
+- **[CalculatorTest.java](file:///c:/Users/lenovo/Downloads/New%20folder/cognizant%202-ReactJS%20HOC/Cognizant%20Tasks/JUnitSetupExample/src/test/java/com/example/CalculatorTest.java)**: Verifies the `Calculator` operations. Uses basic assertions and verifies exceptions.
+- **[AssertionsTest.java](file:///c:/Users/lenovo/Downloads/New%20folder/cognizant%202-ReactJS%20HOC/Cognizant%20Tasks/JUnitSetupExample/src/test/java/com/example/AssertionsTest.java)**: Demonstrates various assertions (`assertEquals`, `assertTrue`, `assertNull`, etc.).
+- **[CalculatorFixtureTest.java](file:///c:/Users/lenovo/Downloads/New%20folder/cognizant%202-ReactJS%20HOC/Cognizant%20Tasks/JUnitSetupExample/src/test/java/com/example/CalculatorFixtureTest.java)**: Showcases best practices in structuring tests:
+  - **Setup (`@Before`)**: Prepares a fresh `Calculator` instance before each test run.
+  - **Teardown (`@After`)**: Clears the instance after each test run.
+  - **AAA (Arrange-Act-Assert) Pattern**: Comments and partitions each test clearly into setup, execution, and verification phases.
 
 ---
 
