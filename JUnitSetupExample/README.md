@@ -22,7 +22,8 @@ JUnitSetupExample/
         └── java/
             └── com/
                 └── example/
-                    └── CalculatorTest.java # JUnit test cases
+                    ├── CalculatorTest.java # JUnit test cases for Calculator
+                    └── AssertionsTest.java # JUnit assertions demonstration test cases
 ```
 
 ---
@@ -54,10 +55,14 @@ The JUnit dependency is configured inside the `dependencies` section of the `pom
 ### 1. Business Logic (`Calculator.java`)
 Implements basic arithmetic operations: addition, subtraction, multiplication, and division. It includes boundary verification checks such as throwing an `IllegalArgumentException` on division-by-zero operations.
 
-### 2. Unit Tests (`CalculatorTest.java`)
-Contains test methods mapped using JUnit's `@Test` annotation.
-- **Assertions**: Uses `assertEquals(expected, actual)` to verify correct math operations.
-- **Exception Verification**: Verifies that division by zero returns the expected exception class using `@Test(expected = IllegalArgumentException.class)`.
+### 2. Unit Tests
+- **[CalculatorTest.java](file:///c:/Users/lenovo/Downloads/New%20folder/cognizant%202-ReactJS%20HOC/Cognizant%20Tasks/JUnitSetupExample/src/test/java/com/example/CalculatorTest.java)**: Verifies the `Calculator` operations. Uses basic assertions and verifies exceptions using `@Test(expected = IllegalArgumentException.class)`.
+- **[AssertionsTest.java](file:///c:/Users/lenovo/Downloads/New%20folder/cognizant%202-ReactJS%20HOC/Cognizant%20Tasks/JUnitSetupExample/src/test/java/com/example/AssertionsTest.java)**: Demonstrates various assertions including:
+  - `assertEquals()`: Verifies expectation values match actual results.
+  - `assertTrue()` / `assertFalse()`: Verifies conditional states.
+  - `assertNull()` / `assertNotNull()`: Checks references.
+  - `assertSame()`: Checks memory location identity.
+  - `assertArrayEquals()`: Checks contents of arrays.
 
 ---
 
