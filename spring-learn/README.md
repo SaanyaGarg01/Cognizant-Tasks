@@ -37,12 +37,16 @@ spring-learn/
         │               ├── SpringLearnApplication.java # Bootstrap class
         │               ├── model/
         │               │   └── Country.java            # Country model POJO
+        │               ├── security/
+        │               │   ├── SecurityConfig.java       # Security settings configuration
+        │               │   └── JwtAuthorizationFilter.java # JWT authorization validation filter
         │               └── controller/
-        │                   ├── HomeController.java     # REST Controller mapping (Welcome)
-        │                   ├── HelloController.java    # REST Controller mapping (Hello World)
-        │                   └── CountryController.java  # REST Controller mapping (Country/Countries)
+        │                   ├── HomeController.java       # REST Controller mapping (Welcome)
+        │                   ├── HelloController.java      # REST Controller mapping (Hello World)
+        │                   ├── CountryController.java    # REST Controller mapping (Country/Countries)
+        │                   └── AuthenticationController.java # JWT auth controller
         └── resources/
-            ├── application.properties  # Server ports & logger patterns (runs on 8083)
+            ├── application.properties  # Server ports & logger patterns (runs on 8090)
             ├── date-format.xml         # Spring Core SimpleDateFormat configuration bean
             └── country.xml             # Spring Core Country XML configuration beans
 ```
@@ -82,14 +86,14 @@ Parsed Date Result: Mon Dec 31 00:00:00 UTC 2018
 
 ### Step 4: Test Web Welcome Endpoint
 Open your browser and navigate to:
-[http://localhost:8083/](http://localhost:8083/)
+[http://localhost:8090/](http://localhost:8090/)
 
 You should see the welcome string:
 `Welcome to Spring Learn Web Application!`
 
 ### Step 5: Test Hello World Web Service
 Open your browser or Postman and trigger a GET request:
-[http://localhost:8083/hello](http://localhost:8083/hello)
+[http://localhost:8090/hello](http://localhost:8090/hello)
 
 #### Sample Response:
 ```text
@@ -99,13 +103,13 @@ Hello World!!
 #### Expected Log Outputs:
 Check the console logs to verify that the start and end logger traces are present:
 ```text
-30-06-26 10:28:45.120 [http-nio-8083-exec-1] INFO  c.c.s.c.HelloController - Start sayHello
-30-06-26 10:28:45.122 [http-nio-8083-exec-1] INFO  c.c.s.c.HelloController - End sayHello
+30-06-26 10:28:45.120 [http-nio-8090-exec-1] INFO  c.c.s.c.HelloController - Start sayHello
+30-06-26 10:28:45.122 [http-nio-8090-exec-1] INFO  c.c.s.c.HelloController - End sayHello
 ```
 
 ### Step 6: Test Country Web Service
 Open your browser or Postman and trigger a GET request:
-[http://localhost:8083/country](http://localhost:8083/country)
+[http://localhost:8090/country](http://localhost:8090/country)
 
 #### Sample Response:
 ```json
@@ -117,7 +121,7 @@ Open your browser or Postman and trigger a GET request:
 
 ### Step 7: Test All Countries Web Service
 Open your browser or Postman and trigger a GET request:
-[http://localhost:8083/countries](http://localhost:8083/countries)
+[http://localhost:8090/countries](http://localhost:8090/countries)
 
 #### Sample Response:
 ```json
@@ -131,7 +135,7 @@ Open your browser or Postman and trigger a GET request:
 
 ### Step 8: Test Get Country by Code (Case Insensitive)
 Open your browser or Postman and trigger a GET request:
-[http://localhost:8083/countries/in](http://localhost:8083/countries/in) (or [http://localhost:8083/country/in](http://localhost:8083/country/in))
+[http://localhost:8090/countries/in](http://localhost:8090/countries/in) (or [http://localhost:8090/country/in](http://localhost:8090/country/in))
 
 #### Sample Response:
 ```json
@@ -140,6 +144,23 @@ Open your browser or Postman and trigger a GET request:
   "name": "India"
 }
 ```
+
+### Step 9: Authenticate and Generate JWT
+Send a GET request with basic credentials `user:pwd` to request the JWT token:
+```bash
+curl -s -u user:pwd http://localhost:8090/authenticate
+```
+#### Sample Response:
+```json
+{"token":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNTcwMzc5NDc0LCJleHAiOjE1NzAzODA2NzR9..."}
+```
+
+### Step 10: Access Secure Services Using Bearer Token
+Send requests to other services including the bearer token in headers:
+```bash
+curl -s -H "Authorization: Bearer <TOKEN>" http://localhost:8090/countries
+```
+If token validation succeeds, the response delivers the countries payload. If the token is modified or invalid, the server responds with a `403 Forbidden` or `401 Unauthorized` status code.
 
 ---
 
