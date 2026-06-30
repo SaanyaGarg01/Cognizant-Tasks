@@ -129,6 +129,18 @@ Open your browser or Postman and trigger a GET request:
 ]
 ```
 
+### Step 8: Test Get Country by Code (Case Insensitive)
+Open your browser or Postman and trigger a GET request:
+[http://localhost:8083/countries/in](http://localhost:8083/countries/in) (or [http://localhost:8083/country/in](http://localhost:8083/country/in))
+
+#### Sample Response:
+```json
+{
+  "code": "IN",
+  "name": "India"
+}
+```
+
 ---
 
 ## SME Aspects Explanation
