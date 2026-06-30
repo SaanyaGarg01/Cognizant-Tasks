@@ -36,9 +36,10 @@ spring-learn/
         │           └── springlearn/
         │               ├── SpringLearnApplication.java # Bootstrap class
         │               └── controller/
-        │                   └── HomeController.java     # REST Controller mapping
+        │                   ├── HomeController.java     # REST Controller mapping (Welcome)
+        │                   └── HelloController.java    # REST Controller mapping (Hello World)
         └── resources/
-            ├── application.properties  # Server ports & logger patterns
+            ├── application.properties  # Server ports & logger patterns (runs on 8083)
             └── date-format.xml         # Spring Core SimpleDateFormat configuration bean
 ```
 
@@ -75,9 +76,25 @@ Parsed Date Result: Mon Dec 31 00:00:00 UTC 2018
 30-06-26 10:15:12.720 [main] INFO  c.c.s.SpringLearnApplication - End displayDate
 ```
 
-### Step 4: Test Web Endpoint
+### Step 4: Test Web Welcome Endpoint
 Open your browser and navigate to:
-[http://localhost:8080/](http://localhost:8080/)
+[http://localhost:8083/](http://localhost:8083/)
 
 You should see the welcome string:
 `Welcome to Spring Learn Web Application!`
+
+### Step 5: Test Hello World Web Service
+Open your browser or Postman and trigger a GET request:
+[http://localhost:8083/hello](http://localhost:8083/hello)
+
+#### Sample Response:
+```text
+Hello World!!
+```
+
+#### Expected Log Outputs:
+Check the console logs to verify that the start and end logger traces are present:
+```text
+30-06-26 10:28:45.120 [http-nio-8083-exec-1] INFO  c.c.s.c.HelloController - Start sayHello
+30-06-26 10:28:45.122 [http-nio-8083-exec-1] INFO  c.c.s.c.HelloController - End sayHello
+```
