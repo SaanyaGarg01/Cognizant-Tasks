@@ -38,7 +38,8 @@ spring-learn/
         │               └── controller/
         │                   └── HomeController.java     # REST Controller mapping
         └── resources/
-            └── application.properties  # Database credentials & logger patterns
+            ├── application.properties  # Server ports & logger patterns
+            └── date-format.xml         # Spring Core SimpleDateFormat configuration bean
 ```
 
 ---
@@ -65,7 +66,16 @@ Or run directly via maven wrapper:
 mvn spring-boot:run
 ```
 
-### Step 3: Test Web Endpoint
+### Step 3: Test SimpleDateFormat XML Loading
+During startup, the application logs the initialization of the XML context and outputs the parsed date object:
+```text
+30-06-26 10:15:12.456 [main] INFO  c.c.s.SpringLearnApplication - Start displayDate
+30-06-26 10:15:12.600 [main] INFO  o.s.c.s.ClassPathXmlApplicationContext - Refreshing ClassPathXmlApplicationContext
+Parsed Date Result: Mon Dec 31 00:00:00 UTC 2018
+30-06-26 10:15:12.720 [main] INFO  c.c.s.SpringLearnApplication - End displayDate
+```
+
+### Step 4: Test Web Endpoint
 Open your browser and navigate to:
 [http://localhost:8080/](http://localhost:8080/)
 
