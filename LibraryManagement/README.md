@@ -25,7 +25,7 @@ LibraryManagement/
         ├── java/
         │   └── com/
         │       └── library/
-        │           ├── MainApplication.java # Bootstrap entry class
+        │           ├── LibraryManagementApplication.java # Bootstrap entry class
         │           ├── repository/
         │           │   └── BookRepository.java # Repository layer bean
         │           └── service/
@@ -75,8 +75,8 @@ We register the beans and configure dependency injection:
 1. Open your IDE (IntelliJ IDEA, Eclipse, or VS Code).
 2. Import/Open the `LibraryManagement` directory.
 3. Allow the IDE to sync Maven dependencies.
-4. Locate `MainApplication.java` in `src/main/java/com/library`.
-5. Right-click the file and select **Run 'MainApplication.main()'**.
+4. Locate `LibraryManagementApplication.java` in `src/main/java/com/library`.
+5. Right-click the file and select **Run 'LibraryManagementApplication.main()'**.
 
 ### Expected Console Output
 ```text

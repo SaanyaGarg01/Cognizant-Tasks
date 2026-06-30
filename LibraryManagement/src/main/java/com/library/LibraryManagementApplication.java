@@ -5,9 +5,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Entry point to bootstrap the Spring context and test bean loading.
+ * Entry point to bootstrap the Spring context and test bean loading and dependency injection.
  */
-public class MainApplication {
+public class LibraryManagementApplication {
     public static void main(String[] args) {
         System.out.println("=== Initializing Spring Application Context ===");
         
@@ -19,7 +19,7 @@ public class MainApplication {
         // 2. Retrieve BookService bean
         BookService bookService = (BookService) context.getBean("bookService");
 
-        // 3. Test configuration by invoking method
+        // 3. Test configuration and verify dependency injection by invoking method
         bookService.manageBooks();
     }
 }
