@@ -35,12 +35,16 @@ spring-learn/
         │       └── cognizant/
         │           └── springlearn/
         │               ├── SpringLearnApplication.java # Bootstrap class
+        │               ├── model/
+        │               │   └── Country.java            # Country model POJO
         │               └── controller/
         │                   ├── HomeController.java     # REST Controller mapping (Welcome)
-        │                   └── HelloController.java    # REST Controller mapping (Hello World)
+        │                   ├── HelloController.java    # REST Controller mapping (Hello World)
+        │                   └── CountryController.java  # REST Controller mapping (Country/Countries)
         └── resources/
             ├── application.properties  # Server ports & logger patterns (runs on 8083)
-            └── date-format.xml         # Spring Core SimpleDateFormat configuration bean
+            ├── date-format.xml         # Spring Core SimpleDateFormat configuration bean
+            └── country.xml             # Spring Core Country XML configuration beans
 ```
 
 ---
@@ -98,3 +102,45 @@ Check the console logs to verify that the start and end logger traces are presen
 30-06-26 10:28:45.120 [http-nio-8083-exec-1] INFO  c.c.s.c.HelloController - Start sayHello
 30-06-26 10:28:45.122 [http-nio-8083-exec-1] INFO  c.c.s.c.HelloController - End sayHello
 ```
+
+### Step 6: Test Country Web Service
+Open your browser or Postman and trigger a GET request:
+[http://localhost:8083/country](http://localhost:8083/country)
+
+#### Sample Response:
+```json
+{
+  "code": "IN",
+  "name": "India"
+}
+```
+
+### Step 7: Test All Countries Web Service
+Open your browser or Postman and trigger a GET request:
+[http://localhost:8083/countries](http://localhost:8083/countries)
+
+#### Sample Response:
+```json
+[
+  { "code": "IN", "name": "India"},
+  { "code": "US", "name": "United States"},
+  { "code": "JP", "name": "Japan"},
+  { "code": "DE", "name": "Germany"}
+]
+```
+
+---
+
+## SME Aspects Explanation
+
+### 1. What happens in the controller method?
+When a request hits `/country` or `/countries`, Spring's `DispatcherServlet` identifies the mapped handler method in `CountryController`. The handler method instantiates a Spring container using `ClassPathXmlApplicationContext("country.xml")`, retrieves the target bean (`in` or `countryList`), and returns the object/list directly.
+
+### 2. How is the bean converted into a JSON response?
+Spring Boot Web automatically configures the **Jackson JSON serialization engine** (`MappingJackson2HttpMessageConverter`). Since `CountryController` is annotated with `@RestController`, Spring realizes that the return value must be written directly to the HTTP response body instead of being resolved as a view template. Jackson serializes the fields of the Java POJO (via its getter methods) into standard JSON key-value properties.
+
+### 3. HTTP Header details received (Chrome Network Tab & Postman Headers)
+- **`Content-Type: application/json`**: Indicates that the response body is formatted as a JSON string.
+- **`Transfer-Encoding: chunked`**: Dynamic response body payload sizes are sent in parts.
+- **`Connection: keep-alive`**: Keeps the underlying TCP connection open for subsequent requests.
+- **`Date`**: The current date and timestamp from the host machine.
