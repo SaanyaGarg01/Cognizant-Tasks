@@ -36,19 +36,52 @@ LibraryManagement/
 
 ---
 
-## Dependencies (`pom.xml`)
+## Dependencies & Plugins (`pom.xml`)
 
-We include the `spring-context` dependency, which automatically imports `spring-core`, `spring-beans`, `spring-aop`, and `spring-expression`:
+We add dependencies for `spring-context`, `spring-aop`, and `spring-webmvc` inside `pom.xml`, and configure the `maven-compiler-plugin` for Java 1.8:
 
 ```xml
+<properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring.version>5.3.31</spring.version>
+</properties>
+
 <dependencies>
     <!-- Spring Context -->
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
-        <version>5.3.31</version>
+        <version>${spring.version}</version>
+    </dependency>
+    <!-- Spring AOP -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <!-- Spring Web MVC -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
     </dependency>
 </dependencies>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 ```
 
 ---
